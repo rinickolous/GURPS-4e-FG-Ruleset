@@ -164,7 +164,7 @@
 				<tabtarget prev="name" next="db" />
 			</string_charfield>
 			<linkcontrol name="shortcut">
-				<anchored width="20" height="20">
+				<anchored width="19" height="20">
 					<top offset="2" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>

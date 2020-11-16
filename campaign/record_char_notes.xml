@@ -213,7 +213,7 @@
 			</button_idelete>
 			
 			<linkcontrol name="shortcut">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="19" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
