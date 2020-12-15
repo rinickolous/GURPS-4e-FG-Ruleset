@@ -8,12 +8,12 @@
 <root>
 	<windowclass name="charsheet_meleecombat">
 		<script>
-      function onDrop(x, y, draginfo)
-        if draginfo.isType("shortcut") then
-          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode(), false);
-        end
-      end
-    </script>
+			function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode(), false);
+				end
+			end
+		</script>
 		<sheetdata>
 
 			<frame_char name="meleecombatframe">
@@ -104,7 +104,7 @@
 				</anchored>
 				<static textres="char_label_weapon" />
 			</label_columntop>
-			
+
 			<list_charmeleecombat name="meleecombatlist">
 				<anchored to="meleecombatframe">
 					<left offset="15" />
@@ -112,16 +112,16 @@
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
-        <script>
-          function onFilter(w)
-            return (DB.getValue(w.getDatabaseNode(), "isHidden", 0) == 0);
-          end
-        </script>
+				<script>
+					function onFilter(w)
+						return (DB.getValue(w.getDatabaseNode(), "isHidden", 0) == 0);
+					end
+				</script>
 			</list_charmeleecombat>
 			<scrollbar_list>
 				<anchored to="meleecombatlist" />
 				<target>meleecombatlist</target>
-      </scrollbar_list>
+			</scrollbar_list>
 
 			<button_iedit name="meleecombatlist_iedit">
 				<anchored to="meleecombatlist" position="aboveright" offset="5,20" />
@@ -131,10 +131,9 @@
 				<anchored to="meleecombatlist_iedit" position="lefthigh" offset="5,0" />
 				<target>meleecombatlist</target>
 			</button_iadd>
-			
+
 		</sheetdata>
 	</windowclass>
-
 
 	<windowclass name="char_meleecombat">
 		<margins control="0,0,0,2" />
@@ -143,15 +142,15 @@
 				setModesVisible();
 				setModifiersVisible();
 			end
-      
+
 			function setModesVisible()
 				local v = false;
 				if activatemodes.getValue() == 1 then
 					v = true;
 				end
-			
+
 				modesicon.setVisible(v);
-				
+
 				modes_parry_label.setVisible(v);
 				modes_reach_label.setVisible(v);
 				modes_damage_label.setVisible(v);
@@ -163,13 +162,13 @@
 				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
 			end
-			
+
 			function setModifiersVisible()
 				local v = false;
 				if activatemodifiers.getValue() == 1 then
 					v = true;
 				end
-				
+
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
@@ -179,7 +178,7 @@
 			end
 		</script>
 		<sheetdata>
-		
+
 			<genericcontrol name="rightanchor">
 				<anchored height="0" width="0">
 					<top />
@@ -193,7 +192,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
-			
+
 			<button_idelete name="idelete">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
@@ -264,7 +263,7 @@
 				<class>charnote</class>
 				<readonly />
 			</linkcontrol>
-			
+
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
@@ -274,7 +273,7 @@
 				<tabtarget next="st" />
 				<nodrag />
 			</string_textlistitem>
-			
+
 			<!-- WEAPON MODES SECTION --> 			
 			<icon_detailsection name="modesicon">
 				<icon>weapon_modes_down</icon>
@@ -332,8 +331,8 @@
 				<class>char_meleemode</class>
 				<noscroll />
 			</list_charmeleemode>
- 
-  			<button_iedit name="modeslist_iedit">
+
+			<button_iedit name="modeslist_iedit">
 				<anchored to="modeslist" position="belowright" offset="5,2" />
 				<target>modeslist</target>
 			</button_iedit>
@@ -342,7 +341,7 @@
 				<target>modeslist</target>
 				<invisible />
 			</button_iadd>
- 
+
 			<frame_detailsub name="frame_modes">
 				<anchored to="bottomanchor">
 					<top anchor="bottom" relation="relative" offset="5" />
@@ -351,7 +350,7 @@
 					<bottom parent="modeslist_iedit" />
 				</anchored>
 			</frame_detailsub>
-		
+
 
 			<!-- WEAPON MODIFIERS SECTION --> 			
 			<icon_detailsection name="modifiersicon">
@@ -376,8 +375,8 @@
 				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
- 
-  			<button_iedit name="modifierslist_iedit">
+
+			<button_iedit name="modifierslist_iedit">
 				<anchored to="modifierslist" position="belowright" offset="5,2" />
 				<target>modifierslist</target>
 			</button_iedit>
@@ -395,14 +394,14 @@
 					<bottom parent="modifierslist_iedit" />
 				</anchored>
 			</frame_detailsub>
-			
+
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="char_meleemode">
 		<margins control="0,0,0,2" />
 		<sheetdata>
-		
+
 			<genericcontrol name="rightanchor">
 				<anchored height="0" width="0">
 					<top />
@@ -417,7 +416,7 @@
 				</anchored>
 				<invisible merge="delete" />
 			</button_idelete>
-			
+
 			<string_chardefensefield name="parry">
 				<rollable_weaponparry />
 				<anchored to="rightanchor" width="30" height="20">
@@ -458,9 +457,6 @@
 				<nodrag />
 				<tabtarget next="level" />
 			</string_textlistitem>
-			
 		</sheetdata>
 	</windowclass>
-
-
 </root>

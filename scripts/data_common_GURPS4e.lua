@@ -6,6 +6,22 @@ aAbilityTypeData = {
 	"Other",
 };
 
+aAttributeTypeData = {
+	"ST",
+	"DX",
+	"IQ",
+	"HT",
+	"WILL",
+	"PER",
+	"Lifting ST",
+	"Striking ST",
+};
+
+AWeaponSkillTypeData = {
+	"Attribute",
+	"Skill",
+};
+
 aSkillTypeData = {
 	"",
 	"ST/Easy",

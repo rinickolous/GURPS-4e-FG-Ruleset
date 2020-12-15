@@ -416,11 +416,16 @@
 	<string name="yards">Yards</string>
 	<string name="miles">Miles</string>
 	<string name="meters">Meters</string>
-  <string name="kilometers">Kilometers</string>
-  <string name="nautical miles">Nautical Miles</string>
-  <string name="au">AU</string>
+  	<string name="kilometers">Kilometers</string>
+  	<string name="nautical miles">Nautical Miles</string>
+  	<string name="au">AU</string>
 	<string name="lightyears">Light Years</string>
 	<string name="parsecs">Parsecs</string>
+
+	<!-- Skills -->
+	<string name="skills_label_modifier">Mod</string>
+	<string name="skills_label_name">Name</string>
+	<string name="skills_label_type">Type</string>
 
   <!-- Local Mode -->
 	

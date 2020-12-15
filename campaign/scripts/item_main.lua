@@ -59,6 +59,32 @@ function update()
 	if updateControl("lc", bReadOnly, bID) then bSection3 = true; end
 
 	local bSection4 = false;
+
+	updateControl("modeslist", bReadOnly, false);
+	if bReadOnly then
+		if modeslist_iedit then
+			modeslist_iedit.setValue(0);
+			modeslist_iedit.setVisible(false);
+		end
+
+		local bShow = (modeslist.getWindowCount() ~= 0);
+		header_modeslist.setVisible(bShow);
+		modeslist.setVisible(bShow);
+	else
+		if modeslist_iedit then
+			modeslist_iedit.setVisible(true);
+		end
+		header_modeslist.setVisible(true);
+		modeslist.setVisible(true);
+	end
+	for _,w in ipairs(modeslist.getWindows()) do
+		w.name.setReadOnly(bReadOnly);
+		w.damage.setReadOnly(bReadOnly);
+		w.reach.setReadOnly(bReadOnly);
+		w.parry.setReadOnly(bReadOnly);
+		w.update(bReadOnly);
+	end
+
 	if updateControl("locations", bReadOnly, bID and bDefense) then bSection4 = true; end
 	if updateControl("db", bReadOnly, bID and bDefense) then bSection4 = true; end
 	if updateControl("dr", bReadOnly, bID and bDefense) then bSection4 = true; end

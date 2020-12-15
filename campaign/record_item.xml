@@ -133,6 +133,87 @@
 			</label_column>
 			<string_columnh name="holdout" />
 
+			<line_column name="divider4" />
+
+			<label_frametop name="header_modeslist">
+				<anchored to="divider4">
+				<top offset="5" />
+				</anchored>
+				<static textres="char_label_meleecombat" />
+			</label_frametop>
+
+			<genericcontrol name="bottomanchor">
+				<anchored to="divider4">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+
+			<label_columntop name="modeslist_ispacer">
+				<anchored width="20" height="20" offset="-10">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
+			<label_columntop name="modes_parry_label">
+				<anchored to="bottomanchor" width="30">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+				</anchored>
+				<static textres="char_label_parry" />
+			</label_columntop>
+			<label_columntop name="modes_reach_label">
+				<anchored to="bottomanchor" width="40">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_reach" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+				<anchored to="bottomanchor" width="70">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+				<anchored to="bottomanchor" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored to="bottomanchor">
+					<top />
+					<left anchor="right" offset="5" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+			<list_charmeleemode name="modeslist">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="15"/>
+					<left parent="columnanchor" anchor="right" offset="0" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>item_meleemode</class>
+				<noscroll />
+			</list_charmeleemode>
+ 
+  			<button_iedit name="modeslist_iedit">
+				<anchored to="modeslist" position="belowright" offset="5,2" />
+				<target>modeslist</target>
+			</button_iedit>
+			<button_iadd name="modeslist_iadd">
+				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modeslist</target>
+				<invisible />
+			</button_iadd>
+
+			<!--
 			<label_column name="damage_label">
 				<static textres="item_label_damage" />
 			</label_column>
@@ -189,8 +270,277 @@
 			<string_columnh name="lc" />
 
 			<line_column name="divider4" />
+			-->
+			<line_column name="divider5">
+				<anchored>
+					<top parent="modeslist_iedit" />
+				</anchored>
+			</line_column>
 
-			<ft_columnh name="notes" />
+			<ft_columnh name="notes">
+				<anchored>
+					<top parent="divider5" />
+				</anchored>
+			</ft_columnh>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="item_meleemode">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setSkillsVisible();
+			end
+
+			function update(bReadOnly)
+				local vSkills = false;
+				if activateskills.getValue() == 1 then
+					vSkills = true and not bReadOnly;
+				end
+				
+				if bReadOnly then
+					if skillslist_iedit then
+						skillslist_iedit.setValue(0);
+						skillslist_iedit.setVisible(false);
+					end
+				else
+					if skillslist_iedit then
+						skillslist_iedit.setVisible(vModes);
+					end
+				end
+				for _,w in ipairs(skillslist.getWindows()) do
+					w.skilltype.setReadOnly(bReadOnly);
+					w.skillname.setReadOnly(bReadOnly);
+					w.attributename.setReadOnly(bReadOnly);
+					w.mod.setReadOnly(bReadOnly);
+				end
+			end
+
+			function setSkillsVisible()
+				local v  = false;
+				if activateskills.getValue() == 1 then
+					v = true;
+				end
+
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent());
+				
+				skillsicon.setVisible(v);
+
+				skills_modifier_label.setVisible(v);
+				skills_name_label.setVisible(v);
+				skills_type_label.setVisible(v);
+				skillslist.setVisible(v);
+				skillslist_iedit.setVisible(v and not bReadOnly);
+				skillslist_ispacer.setVisible(v and not bReadOnly and skillslist_iedit.getValue() == 1);
+				skillslist_iadd.setVisible(v and not bReadOnly and  skillslist_iedit.getValue() == 1);
+				frame_skills.setVisible(v);
+			end
+		</script>
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+			
+			<string_chardefensefield name="parry">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="reach" />
+			</string_chardefensefield>
+			<string_charfield name="reach">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="parry" prev="damage" />
+			</string_charfield>
+			<string_charfield name="damage">
+				<anchored to="rightanchor" width="70" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="reach" prev="name" />
+			</string_charfield>
+			<buttoncontrol name="activateskills">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="weapon_modes" tooltipres="char_tooltip_weaponmodes" />
+				<state icon="weapon_modes_down" />
+				<script>
+					function onValueChanged()
+						window.setSkillsVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+
+			<!-- WEAPON SKILLS SECTION-->
+			<icon_detailsection name="skillsicon">
+				<icon>weapon_modes_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="skillslist_ispacer">
+				<anchored to="skillsicon" width="20" height="20" offset="-10">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
+			<label_columntop name="skills_modifier_label">
+				<anchored to="skillsicon" width="30">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+				</anchored>
+				<static textres="skills_label_modifier" />
+			</label_columntop>
+			<label_columntop name="skills_name_label">
+				<anchored to="skillsicon" width="40">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="skills_label_name" />
+			</label_columntop>
+			<label_columntop name="skills_type_label">
+				<anchored to="skillsicon" width="70">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="skills_label_type" />
+			</label_columntop>
+
+			<list_charmeleemode name="skillslist">
+				<anchored to="skills_type_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="skillsicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>item_skill</class>
+				<noscroll />
+			</list_charmeleemode>
+
+			<button_iedit name="skillslist_iedit">
+				<anchored to="skillslist" position="belowright" offset="5,2" />
+				<target>skillslist</target>
+			</button_iedit>
+			<button_iadd name="skillslist_iadd">
+				<anchored to="skillslist_iedit" position="lefthigh" offset="5,0" />
+				<target>skillslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_skills">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="skillslist" anchor="right" offset="10" />
+					<left parent="skillslist" anchor="left" offset="-10" />
+					<bottom parent="skillslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="item_skill">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+			<number_charfield name="mod">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+			</number_charfield>
+			<string_charfield name="skillname">
+				<anchored to="rightanchor" width="80" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+			</string_charfield>
+
+			<combobox_dark name="attributename">
+				<anchored to="rightanchor" width="80" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+      			<readonly />
+      			<listdirection mergerule="replace">down</listdirection>
+      			<listmaxsize mergerule="replace">6</listmaxsize>
+				<delaykeyupdate />
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aAttributeTypeData);
+					end
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+				<unsorted />
+			</combobox_dark>
+			<combobox_dark name="skilltype">
+				<anchored to="rightanchor" width="80" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+      			<!--readonly /-->
+      			<listdirection mergerule="replace">down</listdirection>
+      			<listmaxsize mergerule="replace">6</listmaxsize>
+				<delaykeyupdate />
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.AWeaponSkillTypeData);
+					end
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+				<unsorted />
+			</combobox_dark>
 		</sheetdata>
 	</windowclass>
 </root>
