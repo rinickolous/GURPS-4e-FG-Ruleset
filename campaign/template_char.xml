@@ -627,4 +627,13 @@
 		</list_text>
 	</template>
 
+	<template name="list_weaponskill">
+		<list_text>
+			<datasource>.weaponskilllist</datasource>
+			<class>item_weaponskill</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
 </root>

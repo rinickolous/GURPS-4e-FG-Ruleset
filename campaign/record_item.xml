@@ -9,10 +9,10 @@
 	<windowclass name="item">
 		<frame>recordsheet</frame>
 		<placement>
-			<size width="350" height="400" />
+			<size width="400" height="400" />
 		</placement>
 		<sizelimits>
-			<minimum width="350" height="400" />
+			<minimum width="400" height="400" />
 			<dynamic />
 		</sizelimits>
 		<minimize>minimized_item</minimize>
@@ -273,7 +273,7 @@
 			-->
 			<line_column name="divider5">
 				<anchored>
-					<top parent="modeslist_iedit" />
+					<top parent="modeslist_iedit" relation="relative" />
 				</anchored>
 			</line_column>
 
@@ -437,7 +437,7 @@
 				<static textres="skills_label_type" />
 			</label_columntop>
 
-			<list_charmeleemode name="skillslist">
+			<list_weaponskill name="skillslist">
 				<anchored to="skills_type_label">
 					<top anchor="bottom" relation="relative" />
 					<left parent="skillsicon" anchor="right" offset="10" />
@@ -445,7 +445,7 @@
 				</anchored>
 				<class>item_skill</class>
 				<noscroll />
-			</list_charmeleemode>
+			</list_weaponskill>
 
 			<button_iedit name="skillslist_iedit">
 				<anchored to="skillslist" position="belowright" offset="5,2" />

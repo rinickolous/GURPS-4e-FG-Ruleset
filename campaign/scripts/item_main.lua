@@ -91,6 +91,10 @@ function update()
 	if updateControl("don", bReadOnly, bID and bDefense) then bSection4 = true; end
 	if updateControl("holdout", bReadOnly, bID and bDefense) then bSection4 = true; end
 
+	local bSection5 = false;
+
+	if bMeleeWeapon then bSection5 = true; end
+	
 	if updateControl("damage", bReadOnly, bID and (bMeleeWeapon or bRangedWeapon)) then bSection4 = true; end
 	if updateControl("reach", bReadOnly, bID and bMeleeWeapon) then bSection4 = true; end
 	if updateControl("parry", bReadOnly, bID and bMeleeWeapon) then bSection4 = true; end
@@ -102,11 +106,12 @@ function update()
 	if updateControl("bulk", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
 	if updateControl("rcl", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
 
-	local bSection5 = bID;
+	local bSection6 = bID;
 	notes.setVisible(bID);
 	notes.setReadOnly(bReadOnly);
 		
 	divider1.setVisible(bSection1 and bSection2);
 	divider2.setVisible((bSection1 or bSection2) and bSection3);
 	divider3.setVisible((bSection1 or bSection2 or bSection3) and bSection4);
+	divider4.setVisible(bSection5);
 end
